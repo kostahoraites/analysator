@@ -297,7 +297,8 @@ def plot_colormap3dslice(filename=None,
             if title=="sec": timeformat='{:4.0f}'
             if title=="msec": timeformat='{:4.3f}'
             if title=="musec": timeformat='{:4.6f}'
-            plot_title = "t="+timeformat.format(timeval)+r'\,'+pt.plot.rmstring('s')
+            #plot_title = "t="+timeformat.format(timeval)+r'\,'+pt.plot.rmstring('s')
+            plot_title = "t={}".format(int(timeval))+r'\,'+pt.plot.rmstring('s')
     else:
         plot_title = title
 
@@ -487,7 +488,7 @@ def plot_colormap3dslice(filename=None,
         xyz = 0
         idlist, indexlist = ids3d.ids3d(cellids, sliceoffset, reflevel, xsize, ysize, zsize, xmin=xmin, xmax=xmax)
         axislabels = ['Y','Z']
-        slicelabel = r"X={:4.1f}\,".format(cutpoint/Re)+pt.plot.rmstring('R')+'_'+pt.plot.rmstring('E')+r"$\qquad $"
+        slicelabel = r"X={:4.1f}\,".format(cutpoint/Re)+pt.plot.rmstring('R')+'_'+pt.plot.rmstring('E')+', '   #r"$\qquad $"
         pt.plot.plot_helpers.PLANE = 'YZ'
     if normal[1] != 0 and normal[0] == 0 and normal[2] == 0:
         simext=[xmin,xmax,zmin,zmax]
@@ -497,7 +498,7 @@ def plot_colormap3dslice(filename=None,
         xyz = 1
         idlist, indexlist = ids3d.ids3d(cellids, sliceoffset, reflevel, xsize, ysize, zsize, ymin=ymin, ymax=ymax)
         axislabels = ['X','Z']
-        slicelabel = r"Y={:4.1f}\,".format(cutpoint/Re)+pt.plot.rmstring('R')+'_'+pt.plot.rmstring('E')+r"$\qquad $"
+        slicelabel = r"Y={:4.1f}\,".format(cutpoint/Re)+pt.plot.rmstring('R')+'_'+pt.plot.rmstring('E')+', '   #r"$\qquad $"
         pt.plot.plot_helpers.PLANE = 'XZ'
     if normal[2] != 0 and normal[0] == 0 and normal[1] == 0:
         simext=[xmin,xmax,ymin,ymax]
@@ -507,7 +508,7 @@ def plot_colormap3dslice(filename=None,
         xyz = 2
         idlist, indexlist = ids3d.ids3d(cellids, sliceoffset, reflevel, xsize, ysize, zsize, zmin=zmin, zmax=zmax)
         axislabels = ['X','Y']
-        slicelabel = r"Z={:4.1f}\,".format(cutpoint/Re)+pt.plot.rmstring('R')+'_'+pt.plot.rmstring('E')+r"$\qquad $"
+        slicelabel = r"Z={:4.1f}\,".format(cutpoint/Re)+pt.plot.rmstring('R')+'_'+pt.plot.rmstring('E')+', '   #r"$\qquad $"
         pt.plot.plot_helpers.PLANE = 'XY'
 
     # Select window to draw
@@ -1382,11 +1383,12 @@ def plot_colormap3dslice(filename=None,
 
         if not cbaxes:
             cb.ax.tick_params(labelsize=fontsize3,width=thick,length=3*thick)
-            cb_title = cax.set_title(cb_title_use,fontsize=fontsize3,fontweight='bold', horizontalalignment=horalign)
-            cb_title.set_position((0.,1.+0.025*scale)) # avoids having colourbar title too low when fontsize is increased
+            cb_title = cax.set_title(cb_title_use,fontsize=fontsize3,fontweight='bold', horizontalalignment=horalign, pad = 22)
+            cb_title.set_position((2.5,1.0+0.025*scale)) # avoids having colourbar title too low when fontsize is increased
         else:
             cb.ax.tick_params(labelsize=fontsize,width=thick,length=3*thick)
-            cb_title = cax.set_title(cb_title_use,fontsize=fontsize,fontweight='bold', horizontalalignment=horalign)
+            cb_title = cax.set_title(cb_title_use,fontsize=fontsize,fontweight='bold', horizontalalignment=horalign, pad = 22)
+            cb_title.set_position((2.5,1.0)) # avoids having colourbar title too low when fontsize is increased
 
         # Perform intermediate draw if necessary to gain access to ticks
         if (symlog is not None and np.isclose(vminuse/vmaxuse, -1.0, rtol=0.2)) or (not lin and symlog is None):

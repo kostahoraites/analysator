@@ -459,7 +459,7 @@ def plot_ionosphere(filename=None,
     gridlatitudes = np.arange(0., 90.-minlatitude,10.)
     ax_polar.set_rmax(90.-minlatitude);
     ax_polar.set_rgrids(gridlatitudes, map(lambda x: str(90.-x)+"°", gridlatitudes),angle=225)
-    ax_polar.set_thetagrids(np.linspace(0., 360, 13), ["24h","2h","4h","","8h","10h","12h","14h","16h","18h","20h","22h","24h"])
+    ax_polar.set_thetagrids(np.linspace(0., 360, 13), ["24h","2h","4h","6h","8h","10h","12h","14h","16h","18h","20h","22h","24h"])
     ax_polar.set_theta_zero_location('S', offset=0)
     ax_polar.tick_params(labelsize=fontsize2, pad=0.1)
 
@@ -502,9 +502,9 @@ def plot_ionosphere(filename=None,
         else:
             # Split existing axes to make room for colorbar
             if axes is None:
-                cax = fig.add_axes([0.9,0.2,0.03,0.6])
+                cax = fig.add_axes([0.99,0.2,0.03,0.6])
             else:
-                cax = axes.inset_axes([0.9,0.2,0.03,0.6])
+                cax = axes.inset_axes([0.99,0.2,0.03,0.6])
             cbdir="right"; horalign="left"
 
         # Set flag which affects colorbar decimal precision
@@ -524,11 +524,11 @@ def plot_ionosphere(filename=None,
 
         if not cbaxes:
             cb.ax.tick_params(labelsize=fontsize3,width=thick,length=3*thick)
-            cb_title = cax.set_title(cb_title_use,fontsize=fontsize3,fontweight='bold', horizontalalignment=horalign)
+            cb_title = cax.set_title(cb_title_use,fontsize=fontsize2,fontweight='bold', horizontalalignment=horalign, pad = 15)
             cb_title.set_position((0.,1.+0.025*scale)) # avoids having colourbar title too low when fontsize is increased
         else:
             cb.ax.tick_params(labelsize=fontsize,width=thick,length=3*thick)
-            cb_title = cax.set_title(cb_title_use,fontsize=fontsize,fontweight='bold', horizontalalignment=horalign)
+            cb_title = cax.set_title(cb_title_use,fontsize=fontsize2,fontweight='bold', horizontalalignment=horalign, pad = 15)
         # Ensure minor tick marks are off
         if lin is not None:
             cb.minorticks_off()
